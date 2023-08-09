@@ -15,21 +15,42 @@
   const setToggleDropdown2 = () => {
     toggleDropdown2.value = !toggleDropdown2.value;
   }
-
+  const navContents = [
+    {
+      index:1,
+      content:"Features",
+      func:setToggleDropdown
+    },
+    {
+      index:2,
+      content:"Company",
+      func:setToggleDropdown2
+    },
+    {
+      index:3,
+      content:"Careers",
+      func:null
+    },
+    {
+      index:4,
+      content:"About",
+      func:null
+    },
+  ]
 </script>
 
 <template>
   <nav class="flex items-start justify-between list-none p-[2rem]">
     <div class="flex items-start justify-between gap-[2rem]">
       <img :src="logo" alt="website-logo" class="self-start"/>
-      <div class="gap-[0.75rem] grid">
-        <li aria-label="nav-item-features" class="flex text-gray hover:text-black items-center justify-end font-Med gap-[10px] cursor-pointer hover:stroke-black" id="link" @click="setToggleDropdown()">
-          Features
+      <div v-for="content in navContents" :key="content.index" class="gap-[0.75rem] flex flex-col">
+        <li v-if="content.index == 1" aria-label="nav-item-features" class="flex text-gray hover:text-black items-center justify-end font-Med gap-[10px] cursor-pointer hover:stroke-black" id="link" @click="setToggleDropdown()">
+          {{ content.content }}
           <svg width="10" height="6" xmlns="http://www.w3.org/2000/svg" :class="toggleDropdown ? 'rotate' : 'rotate-alt'">
             <path d="m1 5 4-4 4 4" stroke="#686868" stroke-width="1.5" fill="none" class="arrow"/>
           </svg>
         </li>
-        <ul aria-label="dropdown-menu" :class="[toggleDropdown.valueOf() == false ? 'invisible' : 'visible','grid gap-[0.5rem] bg-white p-[1.25rem] rounded-[10px] dropdown z-[2]',]">
+        <ul v-if="content.index == 1" aria-label="dropdown-menu" :class="[toggleDropdown.valueOf() == false ? 'invisible' : 'visible','grid gap-[0.5rem] bg-white p-[1.25rem] rounded-[10px] dropdown z-[2]',]">
           <li aria-label="dropdown-menu-todo" class="flex items-center justify-start gap-[1.25rem] font-Med text-gray cursor-pointer">
             <img :src="todo" alt="todo-icon"/>
             Todo list
@@ -47,15 +68,13 @@
             Planning
           </li>
         </ul>
-      </div>
-      <div class="gap-[0.75rem] grid">
-        <li aria-label="nav-item-company" class="flex text-gray features2 hover:text-black items-center justify-start font-Med gap-[10px] cursor-pointer" id="link" @click="setToggleDropdown2()">
-          Company
+        <li v-if="content.index == 2" aria-label="nav-item-company" class="flex text-gray features2 hover:text-black items-center justify-start font-Med gap-[10px] cursor-pointer" id="link" @click="setToggleDropdown2()">
+          {{ content.content }}
           <svg width="10" height="6" xmlns="http://www.w3.org/2000/svg" :class="toggleDropdown2 ? 'rotate' : 'rotate-alt'">
             <path d="m1 5 4-4 4 4" stroke="#686868" stroke-width="1.5" fill="none" class="arrow"/>
           </svg>
         </li>
-        <ul aria-label="dropdown-menu" :class="[toggleDropdown2.valueOf() == false ? 'invisible' : 'visible','grid gap-[0.5rem] bg-white p-[1.25rem] rounded-[10px] dropdown',]">
+        <ul v-if="content.index == 2" aria-label="dropdown-menu" :class="[toggleDropdown2.valueOf() == false ? 'invisible' : 'visible','grid gap-[0.5rem] bg-white p-[1.25rem] rounded-[10px] dropdown',]">
           <li aria-label="dropdown-menu-history" class="flex items-center justify-start gap-[1.25rem] font-Med text-gray cursor-pointer">
             History
           </li>
@@ -66,13 +85,10 @@
             Blog
           </li>
         </ul>
+        <li v-else-if="content.index != 1 && content.index != 2" :class="[content.index == 3 ? 'ml-[-1rem]' : 'ml-0', 'font-Med text-gray cursor-pointer hover:text-black mt-[.05rem]']">
+          {{ content.content }}
+        </li>
       </div>
-      <li aria-label="nav-item-careers" class="font-Med ml-[-0.75rem] cursor-pointer text-gray hover:text-black">
-        Careers
-      </li>
-      <li aria-label="nav-item-about" class="font-Med text-gray cursor-pointer hover:text-black">
-        About
-      </li>
     </div>
     <div class="flex gap-[2rem]">
       <button class="font-Med">
@@ -126,3 +142,28 @@
     }
   }
 </style>
+  <!-- <div class="gap-[0.75rem] grid">
+    <li aria-label="nav-item-company" class="flex text-gray features2 hover:text-black items-center justify-start font-Med gap-[10px] cursor-pointer" id="link" @click="setToggleDropdown2()">
+      Company
+      <svg width="10" height="6" xmlns="http://www.w3.org/2000/svg" :class="toggleDropdown2 ? 'rotate' : 'rotate-alt'">
+        <path d="m1 5 4-4 4 4" stroke="#686868" stroke-width="1.5" fill="none" class="arrow"/>
+      </svg>
+    </li>
+    <ul aria-label="dropdown-menu" :class="[toggleDropdown2.valueOf() == false ? 'invisible' : 'visible','grid gap-[0.5rem] bg-white p-[1.25rem] rounded-[10px] dropdown',]">
+      <li aria-label="dropdown-menu-history" class="flex items-center justify-start gap-[1.25rem] font-Med text-gray cursor-pointer">
+        History
+      </li>
+      <li aria-label="dropdown-menu-team" class="flex items-center justify-start gap-[1.25rem] font-Med text-gray cursor-pointer">
+        Are team
+      </li>
+      <li aria-label="dropdown-menu-blog" class="flex items-center justify-start gap-[1.25rem] font-Med text-gray cursor-pointer">
+        Blog
+      </li>
+    </ul>
+  </div> -->
+  <!-- <li aria-label="nav-item-careers" class="font-Med ml-[-0.75rem] cursor-pointer text-gray hover:text-black">
+    Careers
+  </li>
+  <li aria-label="nav-item-about" class="font-Med text-gray cursor-pointer hover:text-black">
+    About
+  </li> -->

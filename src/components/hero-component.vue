@@ -4,6 +4,28 @@
   import meet from "../assets/client-meet.svg"
   import maker from "../assets/client-maker.svg"
   import heroImg from "../assets/image-hero-desktop.png"
+  const imgs = [
+    {
+      index:1,
+      img:databiz,
+      alt:"client-databiz"
+    },
+    {
+      index:1,
+      img:audiophile,
+      alt:"client-audiophile"
+    },
+    {
+      index:1,
+      img:meet,
+      alt:"client-meet"
+    },
+    {
+      index:1,
+      img:maker,
+      alt:"client-maker"
+    },
+  ]
 </script>
 
 <template>
@@ -19,10 +41,7 @@
         Learn more
       </button>
       <div class="flex gap-[3rem] mt-[3rem]">
-        <img :src="databiz" alt="client-databiz"/>
-        <img :src="audiophile" alt="client-audiophile"/>
-        <img :src="meet" alt="client-meet"/>
-        <img :src="maker" alt="client-maker"/>
+        <img v-for="img in imgs" :key="img.index" :src="img.img" :alt="img.alt"/>
       </div>
     </section>
     <img :src="heroImg" alt="hero-image" width="525"/>
